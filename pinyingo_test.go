@@ -1,4 +1,4 @@
-package pinyingo
+package pinyin
 
 import (
 	"testing"

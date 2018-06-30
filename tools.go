@@ -1,10 +1,8 @@
-package pinyingo
+package pinyin
 
 import (
 	"encoding/json"
 	"log"
-	"os"
-	"path"
 	"regexp"
 	"strings"
 
@@ -19,8 +17,6 @@ var (
 	USE_SEGMENT        = true
 	NO_SEGMENT         = false
 	use_hmm            = true
-	DICT_DIR           = path.Join(os.Getenv("GOPATH"), "src/github.com/struCoder/Go-pinyin/dict")
-	DICT_PHRASES       = path.Join(DICT_DIR, "phrases-dict")
 )
 
 var phrasesDict map[string]string
@@ -95,13 +91,7 @@ func firstLetter(str string) string {
 }
 
 func initPhrases() {
-	f, err := os.Open(DICT_PHRASES)
-	defer f.Close()
-	if err != nil {
-		log.Fatal(err)
-	}
-	decoder := json.NewDecoder(f)
-	if err := decoder.Decode(&phrasesDict); err != nil {
+	if err := json.Unmarshal([]byte(phrasesData), &phrasesDict); err != nil {
 		log.Fatal(err)
 	}
 }

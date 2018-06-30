@@ -1,4 +1,4 @@
-package pinyingo
+package pinyin
 
 var dict = make([]string, 200000)
 
